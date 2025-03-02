@@ -50,11 +50,12 @@ const deleteSingleTask = async(req,res)=>{
 const deleteAllTasks = async(req, res)=>{
     try{
         const {userId} = req
-        const result =  await Tasks.deleteMany({userId})
+        const result =  await Tasks.deleteMany({userId:userId})
         res.status(200).json({message:'all tasks deleted', count: result.count})
     }
     catch(error){
         console.error(error)
+        return res.status(500).json({ message: 'Internal server error' });
     }
 }
 
@@ -67,7 +68,8 @@ const updateProperty = async(req, res)=> {
         res.status(200).json({message:'update successful', item})
     }
     catch(error){
-       
+        console.error(error)
+        return res.status(500).json({ message: 'Internal server error' });
     }
 }
 
